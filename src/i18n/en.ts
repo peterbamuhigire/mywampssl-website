@@ -7,17 +7,13 @@ export const en: SiteContent = {
     downloadWindows: 'Download for Windows',
     starOnGithub: 'Star on GitHub',
     viewOnGithub: 'View on GitHub',
-    readDocs: 'Read the docs',
     menu: 'Menu',
     close: 'Close',
-    switchTo: 'Voir en français',
     backHome: 'Back to home',
-    onThisPage: 'On this page',
     free: 'Free',
     openSource: 'Open source',
     updatedOn: 'Updated',
     readGuide: 'Read the guide',
-    contact: 'Contact',
   },
   nav: [
     { key: 'features', label: 'Features' },
@@ -35,7 +31,6 @@ export const en: SiteContent = {
     rights: 'Released under the MIT licence. Free, forever.',
     licenseNote: 'No accounts. No telemetry. Everything stays on your machine.',
     palestineLine: 'We stand with the people of Palestine — hoping for peace and justice.',
-    madeNote: 'Built in the open.',
   },
 
   home: {
@@ -158,11 +153,6 @@ export const en: SiteContent = {
       h2: 'Standing with Palestine.',
       body: 'Beyond the code, we hold one wish close: that peace and justice will one day prevail for the people of Palestine. It costs nothing to say so, and it would be wrong to stay silent.',
       link: 'Read our message',
-    },
-    faqTeaser: {
-      eyebrow: 'Questions',
-      h2: 'Browser trust, config safety, rollback, OpenSSL, licensing.',
-      link: 'Read the FAQ',
     },
     finalCta: {
       h2: 'Stop fighting certificate warnings.',

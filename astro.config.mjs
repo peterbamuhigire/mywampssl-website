@@ -43,6 +43,8 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss()],
+    // Cast: @tailwindcss/vite's plugin type and Astro's bundled Vite types
+    // differ by a minor version; the plugin is valid at runtime.
+    plugins: [/** @type {any} */ (tailwindcss())],
   },
 });

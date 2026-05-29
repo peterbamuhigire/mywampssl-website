@@ -74,7 +74,7 @@ const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta name="twitter:image" content={ogImage} />
 
     {ldList.map((ld) => (
-      <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
     ))}
   </head>
   <body>

@@ -9,17 +9,13 @@ export const fr: SiteContent = {
     downloadWindows: 'Télécharger pour Windows',
     starOnGithub: 'Star sur GitHub',
     viewOnGithub: 'Voir sur GitHub',
-    readDocs: 'Lire la documentation',
     menu: 'Menu',
     close: 'Fermer',
-    switchTo: 'View in English',
     backHome: 'Retour à l’accueil',
-    onThisPage: 'Sur cette page',
     free: 'Gratuit',
     openSource: 'Open source',
     updatedOn: 'Mis à jour le',
     readGuide: 'Lire le guide',
-    contact: 'Contact',
   },
   nav: [
     { key: 'features', label: 'Fonctionnalités' },
@@ -37,7 +33,6 @@ export const fr: SiteContent = {
     rights: 'Publié sous licence MIT. Gratuit, pour toujours.',
     licenseNote: 'Aucun compte. Aucune télémétrie. Tout reste sur votre machine.',
     palestineLine: 'Nous sommes aux côtés du peuple palestinien — dans l’espoir de la paix et de la justice.',
-    madeNote: 'Développé au grand jour.',
   },
 
   home: {
@@ -160,11 +155,6 @@ export const fr: SiteContent = {
       h2: 'Aux côtés de la Palestine.',
       body: 'Au-delà du code, nous gardons un souhait au cœur : que la paix et la justice prévalent un jour pour le peuple palestinien. Le dire ne coûte rien, et il serait injuste de garder le silence.',
       link: 'Lire notre message',
-    },
-    faqTeaser: {
-      eyebrow: 'Questions',
-      h2: 'Confiance du navigateur, sûreté de la configuration, retour arrière, OpenSSL, licence.',
-      link: 'Lire la FAQ',
     },
     finalCta: {
       h2: 'Cessez de vous battre contre les avertissements de certificat.',

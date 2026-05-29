@@ -25,17 +25,13 @@ export interface SiteContent {
     downloadWindows: string;
     starOnGithub: string;
     viewOnGithub: string;
-    readDocs: string;
     menu: string;
     close: string;
-    switchTo: string;       // "Voir en français" / "View in English"
     backHome: string;
-    onThisPage: string;
     free: string;
     openSource: string;
     updatedOn: string;      // "Updated"
     readGuide: string;
-    contact: string;
   };
   nav: { key: string; label: string }[];   // key is RouteKey
   footer: {
@@ -47,7 +43,6 @@ export interface SiteContent {
     rights: string;
     licenseNote: string;
     palestineLine: string;    // one quiet line in the footer
-    madeNote: string;
   };
 
   home: {
@@ -67,7 +62,6 @@ export interface SiteContent {
     quickstart: { eyebrow: string; h2: string; sub: string; steps: string[]; outro: string; };
     builder: { eyebrow: string; h2: string; paras: string[]; link: string; photoAlt: string; };
     palestine: { eyebrow: string; h2: string; body: string; link: string; };
-    faqTeaser: { eyebrow: string; h2: string; link: string; };
     finalCta: { h2: string; sub: string; };
   };
 
