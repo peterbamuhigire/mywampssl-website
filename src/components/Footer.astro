@@ -1,0 +1,85 @@
+---
+import { Icon } from 'astro-icon/components';
+import Brand from './Brand.astro';
+import { path, type Locale, type RouteKey } from '../i18n/ui';
+import { LINKS, AUTHOR } from '../data/site';
+import type { SiteContent } from '../i18n/types';
+
+interface Props { lang: Locale; content: SiteContent; }
+const { lang, content } = Astro.props;
+const f = content.footer;
+const year = 2026;
+
+const product: { key: RouteKey; label: string }[] = [
+  { key: 'features', label: content.nav.find((n) => n.key === 'features')!.label },
+  { key: 'howItWorks', label: content.nav.find((n) => n.key === 'howItWorks')!.label },
+  { key: 'faq', label: 'FAQ' },
+];
+const guides: { key: RouteKey; label: string }[] = [
+  { key: 'guideSsl', label: content.guideSsl.meta.title },
+  { key: 'guideDomains', label: content.guideDomains.meta.title },
+];
+---
+<footer class="relative mt-24 border-t border-line bg-ink-2/40">
+  <div class="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:col-span-1">
+      <Brand lang={lang} />
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-fg-muted">{f.tagline}</p>
+      <div class="mt-5 flex gap-3">
+        <a href={LINKS.repo} target="_blank" rel="noopener noreferrer" aria-label="GitHub repository"
+           class="grid h-10 w-10 place-items-center rounded-lg border border-line-2 text-fg-soft transition-colors hover:border-green hover:text-green">
+          <Icon name="lucide:github" class="h-5 w-5" />
+        </a>
+        <a href={LINKS.download} target="_blank" rel="noopener noreferrer" aria-label={content.ui.downloadWindows}
+           class="grid h-10 w-10 place-items-center rounded-lg border border-line-2 text-fg-soft transition-colors hover:border-green hover:text-green">
+          <Icon name="lucide:download" class="h-5 w-5" />
+        </a>
+      </div>
+    </div>
+
+    <nav aria-label={f.productHeading}>
+      <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-fg-muted">{f.productHeading}</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {product.map((p) => (
+          <li><a href={path(p.key, lang)} class="text-fg-soft transition-colors hover:text-green">{p.label}</a></li>
+        ))}
+        <li><a href={LINKS.repo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-fg-soft transition-colors hover:text-green">{content.ui.viewOnGithub}<Icon name="lucide:external-link" class="h-3.5 w-3.5" /></a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label={f.learnHeading}>
+      <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-fg-muted">{f.learnHeading}</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {guides.map((g) => (
+          <li><a href={path(g.key, lang)} class="text-fg-soft transition-colors hover:text-green">{g.label}</a></li>
+        ))}
+        <li><a href={path('about', lang)} class="text-fg-soft transition-colors hover:text-green">{content.nav.find((n) => n.key === 'about')!.label}</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-fg-muted">{f.contactHeading}</h2>
+      <p class="mt-4 text-sm text-fg-muted">{f.builtBy}<br /><a href={AUTHOR.website} target="_blank" rel="noopener noreferrer" class="font-medium text-fg transition-colors hover:text-green">{AUTHOR.name}</a></p>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href={`mailto:${AUTHOR.email}`} class="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-green"><Icon name="lucide:mail" class="h-4 w-4" />{AUTHOR.email}</a></li>
+        <li><a href={AUTHOR.whatsappLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-green"><Icon name="lucide:message-circle" class="h-4 w-4" />{AUTHOR.whatsapp}</a></li>
+        <li><a href={AUTHOR.website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-fg-soft transition-colors hover:text-green"><Icon name="lucide:globe" class="h-4 w-4" />techguypeter.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- quiet message of hope -->
+  <div class="container-x">
+    <div class="hr-soft"></div>
+    <a href={path('palestine', lang)} class="group flex items-center justify-center gap-2.5 py-5 text-center text-sm text-fg-muted transition-colors hover:text-fg-soft">
+      <Icon name="lucide:heart" class="h-4 w-4 text-green" />
+      <span>{f.palestineLine}</span>
+    </a>
+    <div class="hr-soft"></div>
+  </div>
+
+  <div class="container-x flex flex-col items-center justify-between gap-3 py-6 text-xs text-fg-muted md:flex-row">
+    <p>© {year} {AUTHOR.name} · {f.rights}</p>
+    <p>{f.licenseNote}</p>
+  </div>
+</footer>

@@ -1,0 +1,158 @@
+{
+  "generated_by": "photo-manager (PIL)",
+  "source": "photo-bank/",
+  "images": [
+    {
+      "file": "screenshot-en.jpg",
+      "category": "product",
+      "width": 801,
+      "height": 485,
+      "kb": 29.0,
+      "usage": "hero / how-it-works (EN)",
+      "alt": "WAMP SSL Automator desktop app showing the WAMP path, detected Apache version, domains table and the Generate SSL Configuration button (English UI)",
+      "notes": "Real app screenshot, native window 801x485. Frame in window chrome."
+    },
+    {
+      "file": "screenshot-fr.jpg",
+      "category": "product",
+      "width": 801,
+      "height": 485,
+      "kb": 29.7,
+      "usage": "hero / features (FR)",
+      "alt": "L'application WAMP SSL Automator affichant le chemin WAMP, la version d'Apache, la table des domaines et le bouton Générer la configuration SSL (interface française)",
+      "notes": "Real app screenshot, French UI 801x485."
+    },
+    {
+      "file": "peter-bamuhigire.jpg",
+      "category": "people",
+      "width": 2000,
+      "height": 2667,
+      "kb": 574.0,
+      "usage": "about / builder",
+      "alt": "Peter Bamuhigire, software and web developer and the maintainer of WAMP SSL Automator",
+      "notes": "Builder portrait. Used small/medium, never dominant."
+    },
+    {
+      "file": "palestine-hope.jpg",
+      "category": "message",
+      "width": 2000,
+      "height": 2000,
+      "kb": 145.7,
+      "usage": "Standing with Palestine section + page",
+      "alt": "People holding the Palestinian flag, hoping for an end to war and for peace and justice",
+      "notes": "Handle with dignity. No product CTA near it."
+    },
+    {
+      "file": "atmos-coding-night.jpg",
+      "category": "atmosphere",
+      "width": 2000,
+      "height": 3358,
+      "kb": 553.5,
+      "usage": "background texture (problem / quick start)",
+      "alt": "A developer's hands typing code on a laptop at night, lit by the screen",
+      "notes": "Darken/duotone toward ink+green. Texture only."
+    },
+    {
+      "file": "atmos-developer-screens.jpg",
+      "category": "atmosphere",
+      "width": 2000,
+      "height": 1333,
+      "kb": 235.0,
+      "usage": "about / builder background (has copy space)",
+      "alt": "Top view of a developer writing code across multiple screens, with empty space for text",
+      "notes": "Copy space top-left; good for overlay headings."
+    },
+    {
+      "file": "atmos-server-room.jpg",
+      "category": "atmosphere",
+      "width": 2000,
+      "height": 2000,
+      "kb": 247.8,
+      "usage": "trust / why-trusted background",
+      "alt": "Interior of a modern server room with rows of racks",
+      "notes": "Texture for the trust / CA section."
+    },
+    {
+      "file": "atmos-server-rack-3d.jpg",
+      "category": "atmosphere",
+      "width": 2000,
+      "height": 2000,
+      "kb": 247.2,
+      "usage": "builder skills (cloud) accent",
+      "alt": "A glowing 3D illustration of a server rack and database cylinder",
+      "notes": "Use very sparingly; recolour toward brand."
+    },
+    {
+      "file": "atmos-security.jpg",
+      "category": "atmosphere",
+      "width": 2000,
+      "height": 1123,
+      "kb": 174.0,
+      "usage": "security / certificate-profile accent",
+      "alt": "An abstract data-protection and cyber-security concept image",
+      "notes": "Texture for security messaging."
+    },
+    {
+      "file": "palestine-children.jpg",
+      "category": "message",
+      "width": 2000,
+      "height": 2000,
+      "kb": 554.5,
+      "usage": "Standing with Palestine — the human cost",
+      "alt": "Two young boys standing amid the rubble of a destroyed building",
+      "notes": "The emotional centre of the page. Darkened, with a caption about children. Handle with dignity."
+    },
+    {
+      "file": "palestine-flag.jpg",
+      "category": "message",
+      "width": 2000,
+      "height": 1555,
+      "kb": 342.3,
+      "usage": "Standing with Palestine — flag banner",
+      "alt": "The flag of Palestine",
+      "notes": "Landscape flag image; usable as a quiet banner."
+    },
+    {
+      "file": "palestine-flag-waving.jpg",
+      "category": "message",
+      "width": 2000,
+      "height": 2000,
+      "kb": 841.1,
+      "usage": "Standing with Palestine — flag",
+      "alt": "A waving Palestinian flag",
+      "notes": "Alternate flag image."
+    },
+    {
+      "file": "palestine-free-poster.jpg",
+      "category": "message",
+      "width": 2000,
+      "height": 2000,
+      "kb": 420.1,
+      "usage": "Standing with Palestine — Free Palestine",
+      "alt": "A poster expressing the call for a free Palestine",
+      "notes": "Activist-style poster; use small and with restraint."
+    }
+  ],
+  "placeholders_needed": [
+    {
+      "slot": "logo",
+      "status": "resolved",
+      "note": "In-house SVG wordmark + padlock-check mark used; no client logo was supplied."
+    }
+  ],
+  "brand_assets": {
+    "mark_svg": "src/assets/brand/icon.svg (padlock + check, generated in-house)",
+    "favicons": [
+      "public/favicon.svg",
+      "favicon-16/32/48.png",
+      "apple-touch-icon.png (180)",
+      "icon-192.png",
+      "icon-512.png"
+    ],
+    "og_images": [
+      "public/og/og-en.png",
+      "public/og/og-fr.png"
+    ],
+    "wordmark": "Rendered as HTML text in Brand.astro using Space Grotesk (self-hosted)"
+  }
+}

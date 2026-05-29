@@ -1,0 +1,19 @@
+---
+import { LOCALES, LOCALE_META, path, type Locale, type RouteKey } from '../i18n/ui';
+interface Props { lang: Locale; routeKey: RouteKey; }
+const { lang, routeKey } = Astro.props;
+---
+<!-- EN / FR toggle that echoes the app's own language switch -->
+<div class="inline-flex items-center rounded-lg border border-line-2 bg-ink-2 p-0.5 text-sm font-medium" role="group" aria-label="Language">
+  {LOCALES.map((l) => (
+    <a
+      href={path(routeKey, l)}
+      hreflang={LOCALE_META[l].htmlLang}
+      lang={LOCALE_META[l].htmlLang}
+      aria-current={l === lang ? 'true' : undefined}
+      class={`rounded-md px-2.5 py-1 transition-colors ${l === lang ? 'bg-green text-ink' : 'text-fg-muted hover:text-fg'}`}
+    >
+      {LOCALE_META[l].label}
+    </a>
+  ))}
+</div>

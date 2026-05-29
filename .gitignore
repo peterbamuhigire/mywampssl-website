@@ -3,6 +3,9 @@ node_modules/
 dist/
 .astro/
 
+# QA / report artifacts
+reports/
+
 # Client confidential content — never commit
 docs/
 photo-bank/

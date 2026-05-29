@@ -1,0 +1,17 @@
+---
+import { path, type Locale } from '../i18n/ui';
+interface Props { lang: Locale; class?: string; compact?: boolean; }
+const { lang, class: cls = '', compact = false } = Astro.props;
+---
+<a href={path('home', lang)} class={`group inline-flex items-center gap-2.5 ${cls}`} aria-label="WAMP SSL Automator — home">
+  <span class="grid h-9 w-9 place-items-center rounded-[10px] border border-line-2 bg-ink-2 transition-colors group-hover:border-green">
+    <svg width="22" height="22" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+      <path d="M188 232 V206 a68 68 0 0 1 136 0 V232" fill="none" stroke="#19D08B" stroke-width="30" stroke-linecap="round"/>
+      <rect x="150" y="232" width="212" height="172" rx="30" fill="#19D08B"/>
+      <path d="M212 318 l28 30 l56 -64" fill="none" stroke="#0B1220" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <span class="font-display text-[1.05rem] font-bold leading-none tracking-tight text-fg">
+    WAMP&nbsp;SSL{!compact && <span class="font-medium text-fg-soft"> Automator</span>}
+  </span>
+</a>

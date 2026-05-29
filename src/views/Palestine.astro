@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getContent } from '../i18n/content';
+import { path, type Locale } from '../i18n/ui';
+import * as S from '../components/schema';
+import flag from '../assets/images/palestine-flag.jpg';
+import children from '../assets/images/palestine-children.jpg';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const p = c.palestine;
+
+const crumbs = [
+  { name: 'WAMP SSL Automator', url: path('home', lang) },
+  { name: p.h1, url: path('palestine', lang) },
+];
+const jsonLd = S.graph(S.organization(), S.website(lang), S.breadcrumb(crumbs));
+---
+<BaseLayout lang={lang} routeKey="palestine" meta={p.meta} content={c} jsonLd={jsonLd}>
+  <article>
+    <!-- hero: message + flag over the city at dusk -->
+    <div class="container-x grid items-center gap-12 py-16 md:py-20 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="eyebrow flex items-center gap-2"><Icon name="lucide:heart" class="h-4 w-4" /> {c.home.palestine.eyebrow}</p>
+        <h1 class="mt-4 text-4xl font-bold leading-[1.1] sm:text-5xl">{p.h1}</h1>
+        <div class="mt-7 space-y-5 text-lg leading-relaxed text-fg-soft">
+          {p.paras.map((para) => <p>{para}</p>)}
+        </div>
+      </div>
+      <figure class="relative">
+        <div class="absolute -inset-4 -z-10 rounded-3xl bg-green/5 blur-2xl"></div>
+        <Image src={flag} alt={p.flagAlt} widths={[640, 1000]} sizes="(min-width: 1024px) 45vw, 92vw" class="w-full rounded-2xl border border-line-2 object-cover" loading="eager" />
+      </figure>
+    </div>
+
+    <!-- the human cost: children amid rubble, sober band -->
+    <figure class="relative mt-6 border-y border-line">
+      <Image src={children} alt={p.childrenAlt} widths={[768, 1280, 1600]} sizes="100vw" class="h-[44vh] min-h-[320px] w-full object-cover object-center opacity-90 md:h-[56vh]" loading="lazy" />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></div>
+      <figcaption class="absolute inset-x-0 bottom-0">
+        <div class="container-x pb-8 md:pb-12">
+          <p class="font-display text-2xl font-semibold text-fg drop-shadow-lg sm:text-3xl">{p.childrenCaption}</p>
+        </div>
+      </figcaption>
+    </figure>
+
+    <!-- closing -->
+    <div class="container-x py-16 text-center md:py-20">
+      <p class="mx-auto max-w-2xl font-display text-3xl font-semibold text-green sm:text-4xl">{p.closing}</p>
+      <a href={path('home', lang)} class="mt-10 inline-flex items-center gap-2 text-sm text-fg-muted transition-colors hover:text-fg">
+        <Icon name="lucide:arrow-right" class="h-4 w-4 rotate-180" /> {c.ui.backHome}
+      </a>
+    </div>
+  </article>
+</BaseLayout>

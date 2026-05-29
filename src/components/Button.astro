@@ -1,0 +1,27 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props {
+  href: string;
+  variant?: 'primary' | 'ghost';
+  size?: 'md' | 'lg';
+  icon?: string;
+  iconRight?: string;
+  external?: boolean;
+  class?: string;
+  ariaLabel?: string;
+}
+const { href, variant = 'primary', size = 'md', icon, iconRight, external = false, class: cls = '', ariaLabel } = Astro.props;
+const rel = external ? 'noopener noreferrer' : undefined;
+const target = external ? '_blank' : undefined;
+---
+<a
+  href={href}
+  class={`btn btn-${variant} ${size === 'lg' ? 'btn-lg' : ''} ${cls}`}
+  rel={rel}
+  target={target}
+  aria-label={ariaLabel}
+>
+  {icon && <Icon name={`lucide:${icon}`} class="h-[1.15em] w-[1.15em]" />}
+  <slot />
+  {iconRight && <Icon name={`lucide:${iconRight}`} class="h-[1.05em] w-[1.05em]" />}
+</a>

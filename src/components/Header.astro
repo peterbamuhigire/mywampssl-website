@@ -1,0 +1,87 @@
+---
+import { Icon } from 'astro-icon/components';
+import Brand from './Brand.astro';
+import Button from './Button.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { path, type Locale, type RouteKey } from '../i18n/ui';
+import { LINKS } from '../data/site';
+import type { SiteContent } from '../i18n/types';
+
+interface Props { lang: Locale; routeKey: RouteKey; content: SiteContent; }
+const { lang, routeKey, content } = Astro.props;
+const nav = content.nav as { key: RouteKey; label: string }[];
+---
+<header
+  x-data="{ open: false, scrolled: false }"
+  @scroll.window="scrolled = window.scrollY > 12"
+  :class="scrolled ? 'border-line bg-ink/85 backdrop-blur-md' : 'border-transparent'"
+  class="sticky top-0 z-50 border-b transition-colors duration-300"
+>
+  <div class="container-x flex h-16 items-center justify-between gap-4">
+    <Brand lang={lang} />
+
+    <!-- desktop nav -->
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      {nav.map((item) => (
+        <a
+          href={path(item.key, lang)}
+          aria-current={item.key === routeKey ? 'page' : undefined}
+          class={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${item.key === routeKey ? 'text-green' : 'text-fg-soft hover:text-fg'}`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:block"><LanguageSwitcher lang={lang} routeKey={routeKey} /></div>
+      <Button href={LINKS.download} icon="download" external class="hidden h-10 sm:inline-flex">
+        {content.ui.download}
+      </Button>
+      <!-- mobile toggle -->
+      <button
+        type="button"
+        class="grid h-10 w-10 place-items-center rounded-lg border border-line-2 text-fg lg:hidden"
+        @click="open = !open"
+        :aria-expanded="open.toString()"
+        aria-controls="mobile-menu"
+        aria-label={content.ui.menu}
+      >
+        <Icon name="lucide:menu" x-show="!open" class="h-5 w-5" />
+        <Icon name="lucide:x" x-show="open" x-cloak class="h-5 w-5" />
+      </button>
+    </div>
+  </div>
+
+  <!-- mobile menu -->
+  <div
+    id="mobile-menu"
+    x-show="open"
+    x-cloak
+    x-transition.origin.top
+    @click.outside="open = false"
+    class="border-t border-line bg-ink lg:hidden"
+  >
+    <nav class="container-x flex flex-col gap-1 py-4" aria-label="Mobile">
+      {nav.map((item) => (
+        <a
+          href={path(item.key, lang)}
+          aria-current={item.key === routeKey ? 'page' : undefined}
+          class={`rounded-lg px-3 py-3 text-base font-medium ${item.key === routeKey ? 'bg-ink-2 text-green' : 'text-fg-soft hover:bg-ink-2'}`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <div class="mt-3 flex items-center justify-between gap-3">
+        <LanguageSwitcher lang={lang} routeKey={routeKey} />
+        <Button href={LINKS.download} icon="download" external class="flex-1 justify-center">
+          {content.ui.downloadWindows}
+        </Button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style is:global>
+  [x-cloak] { display: none !important; }
+</style>

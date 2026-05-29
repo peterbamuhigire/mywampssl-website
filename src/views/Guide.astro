@@ -1,0 +1,95 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaqList from '../components/Faq.astro';
+import Button from '../components/Button.astro';
+import { getContent } from '../i18n/content';
+import { path, type Locale, type RouteKey } from '../i18n/ui';
+import { LINKS } from '../data/site';
+import * as S from '../components/schema';
+
+interface Props { lang: Locale; which: 'guideSsl' | 'guideDomains'; }
+const { lang, which } = Astro.props;
+const c = getContent(lang);
+const g = which === 'guideSsl' ? c.guideSsl : c.guideDomains;
+const routeKey: RouteKey = which;
+const pagePath = path(routeKey, lang);
+
+const crumbs = [
+  { name: 'WAMP SSL Automator', url: path('home', lang) },
+  { name: g.h1, url: pagePath },
+];
+const jsonLd = S.graph(
+  S.organization(), S.website(lang), S.person(),
+  S.softwareApplication(lang),
+  S.techArticle(g, pagePath, lang),
+  S.faqPage(g.faqs),
+  S.breadcrumb(crumbs),
+);
+const dateFmt = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+const updatedLabel = dateFmt.format(new Date(g.updated));
+---
+<BaseLayout lang={lang} routeKey={routeKey} meta={g.meta} content={c} jsonLd={jsonLd}>
+  <article>
+    <header class="glow-green border-b border-line py-14 md:py-20">
+      <div class="container-x max-w-3xl">
+        <nav aria-label="Breadcrumb" class="mb-5 flex items-center gap-2 text-sm text-fg-muted">
+          <a href={path('home', lang)} class="hover:text-fg">WAMP SSL</a>
+          <Icon name="lucide:chevron-right" class="h-3.5 w-3.5" />
+          <span class="text-fg-soft">{c.nav.find((n) => n.key === routeKey)?.label}</span>
+        </nav>
+        <h1 class="text-4xl font-bold leading-[1.1] sm:text-[2.9rem]">{g.h1}</h1>
+        <p class="mt-6 text-lg leading-relaxed text-fg-soft">{g.lead}</p>
+        <p class="mt-5 flex items-center gap-2 font-mono text-xs text-fg-muted">
+          <Icon name="lucide:file-text" class="h-4 w-4" /> {c.ui.updatedOn} {updatedLabel}
+        </p>
+      </div>
+    </header>
+
+    <div class="container-x grid gap-12 py-14 md:py-16 lg:grid-cols-[1fr_16rem] lg:gap-16">
+      <div class="max-w-none lg:max-w-2xl">
+        <div class="prose-doc">
+          {g.sections.map((sec) => (
+            <section id={sec.id}>
+              <h2>{sec.h2}</h2>
+              <Fragment set:html={sec.html} />
+            </section>
+          ))}
+        </div>
+
+        <section id="faq" class="mt-14">
+          <h2 class="font-display text-[1.7rem] font-bold text-fg">FAQ</h2>
+          <div class="mt-5">
+            <FaqList items={g.faqs} />
+          </div>
+        </section>
+      </div>
+
+      <!-- sticky table of contents -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24">
+          <p class="font-display text-sm font-semibold uppercase tracking-wider text-fg-muted">{g.tocLabel}</p>
+          <nav class="mt-4 space-y-2 border-l border-line text-sm" aria-label="Table of contents">
+            {g.sections.map((sec) => (
+              <a href={`#${sec.id}`} class="block border-l-2 border-transparent -ml-px pl-4 py-1 text-fg-muted transition-colors hover:border-green hover:text-fg">{sec.h2}</a>
+            ))}
+            <a href="#faq" class="block border-l-2 border-transparent -ml-px pl-4 py-1 text-fg-muted transition-colors hover:border-green hover:text-fg">FAQ</a>
+          </nav>
+        </div>
+      </aside>
+    </div>
+
+    <section class="glow-green border-t border-line py-16 text-center md:py-20">
+      <div class="container-x">
+        <h2 class="mx-auto max-w-xl text-3xl font-bold sm:text-4xl">{c.home.finalCta.h2}</h2>
+        <p class="mx-auto mt-4 max-w-lg text-fg-soft">{c.home.finalCta.sub}</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <Button href={LINKS.download} icon="download" size="lg" external>{c.ui.downloadWindows}</Button>
+          <Button href={path(which === 'guideSsl' ? 'guideDomains' : 'guideSsl', lang)} variant="ghost" size="lg" iconRight="arrow-right">
+            {c.nav.find((n) => n.key === (which === 'guideSsl' ? 'guideDomains' : 'guideSsl'))?.label}
+          </Button>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

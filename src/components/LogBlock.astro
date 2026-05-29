@@ -1,0 +1,22 @@
+---
+// Renders the mono "real-time log" motif. Lines containing "OK" / final verdict
+// are highlighted green automatically.
+interface Props { lines: string[]; title?: string; class?: string; }
+const { lines, title = 'WampSSL — log', class: cls = '' } = Astro.props;
+---
+<div class={`logblock overflow-hidden ${cls}`} role="img" aria-label={title}>
+  <div class="flex items-center gap-2 border-b border-line bg-ink-3/60 px-4 py-2">
+    <span class="h-2.5 w-2.5 rounded-full bg-green"></span>
+    <span class="font-mono text-xs text-fg-muted">{title}</span>
+  </div>
+  <div class="overflow-x-auto px-4 py-3">
+    {lines.map((line) => {
+      const ok = /\bOK\b|N\/N|\bSyntax OK\b|running|ready|present/i.test(line);
+      return (
+        <div class="whitespace-pre">
+          <span class="log-dim">&rsaquo;&nbsp;</span><span class={ok ? 'log-ok' : ''}>{line}</span>
+        </div>
+      );
+    })}
+  </div>
+</div>

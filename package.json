@@ -1,0 +1,31 @@
+{
+  "name": "mywampssl-website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WAMP SSL Automator — trusted local HTTPS for WampServer in one click. Marketing site (EN/FR).",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/alpinejs": "^0.4.8",
+    "@astrojs/sitemap": "^3.4.1",
+    "@fontsource-variable/space-grotesk": "^5.2.5",
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/ibm-plex-sans": "^5.2.5",
+    "@iconify-json/lucide": "^1.2.30",
+    "@tailwindcss/vite": "^4.1.7",
+    "alpinejs": "^3.14.9",
+    "astro": "^5.8.0",
+    "astro-icon": "^1.1.5",
+    "sharp": "^0.34.1",
+    "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.60.0"
+  }
+}

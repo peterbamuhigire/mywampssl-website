@@ -1,0 +1,95 @@
+---
+import '@fontsource-variable/space-grotesk';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-sans/700.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
+import '../styles/global.css';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL, OG } from '../data/site';
+import { LOCALE_META, path, absUrl, alternates, type Locale, type RouteKey } from '../i18n/ui';
+import type { SiteContent } from '../i18n/types';
+
+interface Props {
+  lang: Locale;
+  routeKey: RouteKey;
+  meta: { title: string; description: string };
+  content: SiteContent;
+  jsonLd?: object | object[];
+  mainClass?: string;
+}
+
+const { lang, routeKey, meta, content, jsonLd, mainClass = '' } = Astro.props;
+
+const canonical = absUrl(path(routeKey, lang), SITE_URL);
+const alts = alternates(routeKey, SITE_URL);
+const ogImage = absUrl(OG[lang], SITE_URL);
+const htmlLang = LOCALE_META[lang].htmlLang;
+const ogLocale = LOCALE_META[lang].ogLocale;
+const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<!doctype html>
+<html lang={htmlLang} class="scroll-pt-24">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={canonical} />
+
+    {alts.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WAMP SSL Automator" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {ldList.map((ld) => (
+      <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    ))}
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-green focus:px-4 focus:py-2 focus:font-semibold focus:text-ink">
+      {content.ui.skipToContent}
+    </a>
+
+    <div class="grain pointer-events-none fixed inset-0 -z-10 opacity-60"></div>
+
+    <Header lang={lang} routeKey={routeKey} content={content} />
+
+    <main id="main" class={mainClass}>
+      <slot />
+    </main>
+
+    <Footer lang={lang} content={content} />
+  </body>
+</html>

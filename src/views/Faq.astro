@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaqList from '../components/Faq.astro';
+import Button from '../components/Button.astro';
+import { getContent } from '../i18n/content';
+import { path, type Locale } from '../i18n/ui';
+import { LINKS } from '../data/site';
+import * as S from '../components/schema';
+
+interface Props { lang: Locale; }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const fq = c.faq;
+const allFaqs = fq.groups.flatMap((g) => g.items);
+
+const crumbs = [
+  { name: 'WAMP SSL Automator', url: path('home', lang) },
+  { name: 'FAQ', url: path('faq', lang) },
+];
+const jsonLd = S.graph(S.organization(), S.website(lang), S.softwareApplication(lang), S.faqPage(allFaqs), S.breadcrumb(crumbs));
+---
+<BaseLayout lang={lang} routeKey="faq" meta={fq.meta} content={c} jsonLd={jsonLd}>
+  <section class="glow-green border-b border-line py-16 md:py-20">
+    <div class="container-x max-w-3xl">
+      <p class="eyebrow">FAQ</p>
+      <h1 class="mt-4 text-4xl font-bold leading-[1.08] sm:text-5xl">{fq.h1}</h1>
+      <p class="mt-6 text-lg text-fg-soft">{fq.lead}</p>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="container-x max-w-3xl space-y-12">
+      {fq.groups.map((group) => (
+        <div>
+          <h2 class="mb-5 font-display text-xl font-semibold text-fg">{group.heading}</h2>
+          <FaqList items={group.items} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="glow-green py-16 text-center md:py-20">
+    <div class="container-x">
+      <h2 class="mx-auto max-w-xl text-3xl font-bold sm:text-4xl">{c.home.finalCta.h2}</h2>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={LINKS.download} icon="download" size="lg" external>{c.ui.downloadWindows}</Button>
+        <Button href={LINKS.issues} variant="ghost" size="lg" icon="github" external>GitHub</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
