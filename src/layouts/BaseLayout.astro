@@ -18,7 +18,7 @@ import type { SiteContent } from '../i18n/types';
 interface Props {
   lang: Locale;
   routeKey: RouteKey;
-  meta: { title: string; description: string };
+  meta: { title: string; description: string; keywords?: string[] };
   content: SiteContent;
   jsonLd?: object | object[];
   mainClass?: string;
@@ -41,7 +41,12 @@ const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{meta.title}</title>
     <meta name="description" content={meta.description} />
+    {meta.keywords?.length ? <meta name="keywords" content={meta.keywords.join(', ')} /> : null}
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="Peter Bamuhigire" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs summary" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full LLMs context" />
 
     {alts.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
 

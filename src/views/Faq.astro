@@ -17,7 +17,7 @@ const crumbs = [
   { name: 'WAMP SSL Automator', url: path('home', lang) },
   { name: 'FAQ', url: path('faq', lang) },
 ];
-const jsonLd = S.graph(S.organization(), S.website(lang), S.softwareApplication(lang), S.faqPage(allFaqs), S.breadcrumb(crumbs));
+const jsonLd = S.graph(S.organization(), S.website(lang), S.person(), S.softwareApplication(lang), S.faqPage(allFaqs), S.breadcrumb(crumbs));
 ---
 <BaseLayout lang={lang} routeKey="faq" meta={fq.meta} content={c} jsonLd={jsonLd}>
   <section class="glow-green border-b border-line py-16 md:py-20">

@@ -60,6 +60,7 @@ export function softwareApplication(locale: Locale) {
     url: SITE_URL,
     downloadUrl: LINKS.download,
     softwareHelp: LINKS.readme,
+    softwareRequirements: 'Windows 10 or 11, WampServer, Apache, Administrator rights, .NET 8 runtime unless using a self-contained build',
     inLanguage: locale === 'fr' ? 'fr' : 'en',
     author: { '@id': PERSON_ID },
     publisher: { '@id': ORG_ID },
@@ -74,6 +75,15 @@ export function softwareApplication(locale: Locale) {
       'End-to-end HTTPS verification',
       'WAMP and Apache version auto-detection',
       'Single-window real-time log',
+    ],
+    keywords: [
+      'WampServer SSL',
+      'WAMP HTTPS localhost',
+      'trusted local HTTPS',
+      'Apache SSL vhost Windows',
+      'local development certificate authority',
+      'Subject Alternative Name certificate',
+      'Windows hosts file',
     ],
   };
 }
@@ -129,6 +139,13 @@ export function techArticle(guide: Guide, pagePath: string, locale: Locale) {
     author: { '@id': PERSON_ID },
     publisher: { '@id': ORG_ID },
     image: abs(OG[locale]),
+    keywords: guide.meta.keywords,
+    about: [
+      { '@type': 'Thing', name: 'WampServer SSL configuration' },
+      { '@type': 'Thing', name: 'Trusted localhost HTTPS' },
+      { '@type': 'Thing', name: 'Apache virtual hosts on Windows' },
+      { '@type': 'Thing', name: 'Local certificate authority' },
+    ],
   };
 }
 

@@ -308,12 +308,21 @@ export const fr: SiteContent = {
 
   guideSsl: {
     meta: {
-      title: 'Configurer le HTTPS/SSL de confiance sur WampServer (Windows)',
+      title: 'HTTPS/SSL WampServer : localhost fiable et domaines .test',
       description:
-        'Guide pas à pas vers un HTTPS local de confiance sur WampServer : une AC locale, le bon profil de certificat, les vhosts Apache et le fichier hosts — à la main, ou en un clic.',
+        'Activez un HTTPS fiable pour localhost WampServer et vos domaines locaux .test avec une AC locale, des vhosts SSL Apache, le fichier hosts, des certificats acceptés par le navigateur et une automatisation en un clic.',
+      keywords: [
+        'activer HTTPS localhost WampServer',
+        'configuration SSL WampServer',
+        'HTTPS localhost WAMP',
+        'alerte certificat WampServer',
+        'vhost SSL Apache Windows',
+        'HTTPS local de confiance',
+        'WAMP SSL Automator',
+      ],
     },
     h1: 'Comment configurer un HTTPS (SSL) de confiance sur WampServer pour Windows',
-    lead: 'Ce guide vous montre comment obtenir un vrai cadenas vert sur vos sites WampServer locaux — d’abord en comprenant ce que le navigateur exige réellement, puis en le faisant à la main, et enfin en un clic. À la fin, vous saurez pourquoi le HTTPS sur localhost est délicat, et exactement comment le rendre fiable.',
+    lead: 'Ce guide vous montre comment activer un HTTPS de confiance pour localhost WampServer et pour des domaines de projet locaux comme myapp.test — d’abord en comprenant ce que le navigateur exige réellement, puis en le faisant à la main, et enfin en un clic. À la fin, vous saurez pourquoi le HTTPS sur localhost est délicat, pourquoi les certificats SSL WAMP déclenchent encore des avertissements, et exactement comment les rendre fiables.',
     published: '2026-05-30',
     updated: '2026-05-30',
     tocLabel: 'Sur cette page',
@@ -348,6 +357,13 @@ export const fr: SiteContent = {
 <li>Un projet servi par Apache, par exemple <code>C:\\wamp64\\www\\myapp\\public</code>.</li>
 </ul>
 <p>Tout au long de ce guide, le domaine d’exemple est <code>myapp.test</code>. Le suffixe <code>.test</code> est réservé aux tests et ne se résoudra jamais sur l’internet public, ce qui en fait un choix idéal pour le développement local.</p>`,
+      },
+      {
+        id: 'mode-https-wampserver',
+        h2: 'Et le mode HTTPS de WampServer pour localhost ?',
+        html: `<p>Si votre recherche a commencé par <strong>« activer le mode HTTPS pour localhost »</strong>, vous êtes au bon endroit. Les versions récentes de WampServer incluent un mode HTTPS pour <code>localhost</code>, utile pour que le tableau de bord WampServer réponde sur <code>https://localhost</code>.</p>
+<p>La plupart des projets ont besoin de plus que cela. Laravel, WordPress, Symfony, les backends API et les rappels OAuth tournent souvent sur des hôtes virtuels nommés comme <code>myapp.test</code>, <code>shop.test</code> ou <code>api.test</code>. Ces noms ont toujours besoin des mêmes éléments difficiles : une autorité de certification locale fiable, des certificats par domaine avec Subject Alternative Name, des vhosts Apache <code>:443</code>, des entrées dans le fichier hosts Windows, un redémarrage propre et une vraie vérification HTTPS.</p>
+<p>C’est l’écart que vise WAMP SSL Automator. Il ne remplace pas WampServer ; il automatise le travail de certificats et d’hôtes virtuels autour de WampServer pour que chaque projet local puisse utiliser un HTTPS fiable sans avertissement du navigateur.</p>`,
       },
       {
         id: 'methode-manuelle',
@@ -418,7 +434,9 @@ openssl x509 -req -in myapp.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial -ou
     ],
     faqs: [
       { q: 'La configuration du HTTPS localhost sur WampServer est-elle gratuite ?', a: 'Oui. La méthode manuelle comme WAMP SSL Automator sont gratuites ; l’outil est open source sous licence MIT et utilise l’OpenSSL déjà fourni avec WampServer.' },
+      { q: 'WampServer possède-t-il déjà un mode HTTPS pour localhost ?', a: 'Les versions récentes de WampServer incluent une prise en charge HTTPS pour localhost, mais les domaines de projet comme myapp.test ont toujours besoin de certificats fiables, de vhosts SSL Apache et d’entrées dans le fichier hosts. WAMP SSL Automator automatise précisément cette configuration répétable par domaine.' },
       { q: 'Pourquoi Chrome avertit-il encore après avoir ajouté un certificat SSL à WAMP ?', a: 'Presque toujours parce que le certificat est auto-signé (aucune AC fiable), qu’il lui manque un Subject Alternative Name, qu’il n’a pas d’Extended Key Usage serverAuth, ou qu’il est valide plus de 825 jours. Le signer avec une AC locale de confiance et utiliser le profil moderne corrige l’avertissement.' },
+      { q: 'WAMP SSL Automator peut-il corriger « Votre connexion n’est pas privée » sur WampServer ?', a: 'Oui, lorsque l’avertissement vient d’un certificat local non approuvé. L’outil crée une AC racine locale, l’installe dans le magasin de confiance Windows, émet des certificats par domaine compatibles avec les navigateurs et vérifie chaque domaine HTTPS après le redémarrage d’Apache.' },
       { q: 'Où WampServer conserve-t-il la configuration SSL d’Apache ?', a: 'Dans httpd-vhosts.conf (dans le dossier conf/extra de l’Apache de votre installation WAMP). mod_ssl doit être activé, et les vhosts SSL écoutent sur le port 443.' },
       { q: 'Dois-je répéter cela pour chaque projet ?', a: 'À la main, oui — chaque domaine a besoin de son propre certificat, vhost et entrée hosts. WAMP SSL Automator vous permet de gérer une liste de domaines et de tout régénérer d’un coup, en réutilisant l’AC.' },
     ],

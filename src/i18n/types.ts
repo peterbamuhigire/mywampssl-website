@@ -1,5 +1,5 @@
 // Shape of the per-locale content. en.ts and fr.ts both satisfy this.
-export interface Meta { title: string; description: string; }
+export interface Meta { title: string; description: string; keywords?: string[]; }
 
 export interface Feature { icon: string; title: string; body: string; }
 export interface Step { name: string; text: string; }

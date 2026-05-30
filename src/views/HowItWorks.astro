@@ -16,7 +16,7 @@ const crumbs = [
   { name: c.nav.find((n) => n.key === 'howItWorks')!.label, url: path('howItWorks', lang) },
 ];
 const jsonLd = S.graph(
-  S.organization(), S.website(lang), S.softwareApplication(lang),
+  S.organization(), S.website(lang), S.person(), S.softwareApplication(lang),
   S.howTo(w.h1, w.steps, lang), S.breadcrumb(crumbs),
 );
 ---

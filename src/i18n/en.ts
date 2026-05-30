@@ -306,12 +306,21 @@ export const en: SiteContent = {
 
   guideSsl: {
     meta: {
-      title: 'How to Set Up Trusted HTTPS/SSL on WampServer (Windows)',
+      title: 'WampServer HTTPS/SSL Setup: Trusted Localhost and .test Domains',
       description:
-        'A step-by-step guide to trusted local HTTPS on WampServer: a local CA, the right certificate profile, Apache vhosts and the hosts file — by hand, or in one click.',
+        'Enable trusted HTTPS mode for WampServer localhost and local .test domains with a local CA, Apache SSL vhosts, the hosts file, browser-safe certificates and one-click automation.',
+      keywords: [
+        'enable HTTPS mode for localhost WampServer',
+        'WampServer SSL setup',
+        'WAMP HTTPS localhost',
+        'WampServer certificate warning',
+        'Apache SSL virtual host Windows',
+        'trusted local HTTPS',
+        'WAMP SSL Automator',
+      ],
     },
     h1: 'How to set up trusted HTTPS (SSL) on WampServer for Windows',
-    lead: 'This guide shows you how to get a real green padlock on your local WampServer sites — first by understanding what the browser actually requires, then doing it by hand, and finally the one-click way. By the end you will know why localhost HTTPS is fiddly, and exactly how to make it trusted.',
+    lead: 'This guide shows you how to enable trusted HTTPS for WampServer localhost and local project domains such as myapp.test — first by understanding what the browser actually requires, then doing it by hand, and finally the one-click way. By the end you will know why localhost HTTPS is fiddly, why WAMP SSL certificates can still trigger warnings, and exactly how to make them trusted.',
     published: '2026-05-30',
     updated: '2026-05-30',
     tocLabel: 'On this page',
@@ -346,6 +355,13 @@ export const en: SiteContent = {
 <li>A project served by Apache, for example <code>C:\\wamp64\\www\\myapp\\public</code>.</li>
 </ul>
 <p>Throughout this guide the example domain is <code>myapp.test</code>. The <code>.test</code> suffix is reserved for testing and will never resolve on the public internet, which makes it ideal for local development.</p>`,
+      },
+      {
+        id: 'wampserver-https-mode',
+        h2: 'What about WampServer HTTPS mode for localhost?',
+        html: `<p>If your search started with <strong>“Enable HTTPS mode for localhost”</strong>, you are in the right place. Recent WampServer versions include an HTTPS mode for <code>localhost</code>, which helps the WampServer dashboard itself answer on <code>https://localhost</code>.</p>
+<p>Most project work needs more than that. Laravel, WordPress, Symfony, API backends and OAuth callbacks usually run on named virtual hosts such as <code>myapp.test</code>, <code>shop.test</code> or <code>api.test</code>. Those names still need the same hard parts: a trusted local Certificate Authority, per-domain certificates with Subject Alternative Names, Apache <code>:443</code> vhosts, Windows hosts-file entries, a clean restart and a real HTTPS verification step.</p>
+<p>That is the gap WAMP SSL Automator targets. It does not replace WampServer; it automates the certificate and virtual-host work around WampServer so every local project can use trusted HTTPS without browser warnings.</p>`,
       },
       {
         id: 'manual-way',
@@ -416,7 +432,9 @@ openssl x509 -req -in myapp.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial -ou
     ],
     faqs: [
       { q: 'Is WampServer localhost HTTPS free to set up?', a: 'Yes. Both the manual method and WAMP SSL Automator are free; the tool is open source under the MIT licence and uses the OpenSSL that already ships with WampServer.' },
+      { q: 'Does WampServer already have an HTTPS mode for localhost?', a: 'Recent WampServer versions include HTTPS support for localhost, but project domains such as myapp.test still need trusted certificates, Apache SSL vhosts and hosts-file entries. WAMP SSL Automator focuses on automating that repeatable project-domain setup.' },
       { q: 'Why does Chrome still warn after I added an SSL certificate to WAMP?', a: 'Almost always because the certificate is self-signed (no trusted CA), is missing a Subject Alternative Name, lacks a serverAuth Extended Key Usage, or is valid for more than 825 days. Signing it with a trusted local CA and using the modern profile fixes the warning.' },
+      { q: 'Can WAMP SSL Automator fix “Your connection is not private” on WampServer?', a: 'Yes, when the warning is caused by an untrusted local certificate. The tool creates a local Root CA, installs it into the Windows trust store, issues browser-compliant per-domain certificates and verifies each HTTPS domain after Apache restarts.' },
       { q: 'Where does WampServer keep the Apache SSL config?', a: 'In httpd-vhosts.conf (under the Apache conf/extra folder of your WAMP install). mod_ssl must be enabled, and SSL vhosts listen on port 443.' },
       { q: 'Do I have to repeat this for every project?', a: 'By hand, yes — each domain needs its own certificate, vhost and hosts entry. WAMP SSL Automator lets you manage a list of domains and regenerate everything at once, reusing the CA.' },
     ],
