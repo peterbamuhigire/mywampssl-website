@@ -35,3 +35,9 @@ export const OG = {
   en: '/og/og-en.png',
   fr: '/og/og-fr.png',
 } as const;
+
+// Alt text for the social card images (describes what the image shows).
+export const OG_ALT = {
+  en: 'WAMP SSL Automator: a green padlock with the words "Trusted local HTTPS for WampServer. One click. No more certificate warnings."',
+  fr: 'WAMP SSL Automator : un cadenas vert et le texte « HTTPS local de confiance pour WampServer. En un clic. Fini les alertes de certificat. »',
+} as const;

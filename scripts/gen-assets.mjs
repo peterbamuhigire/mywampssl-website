@@ -1,5 +1,6 @@
 // Generates favicons + OG social cards from the brand mark using sharp.
-// Run: node scripts/gen-assets.mjs
+// Run: node scripts/gen-assets.mjs            (all icons and OG cards)
+//      node scripts/gen-assets.mjs og-fr.png  (only the named OG card(s))
 import sharp from 'sharp';
 import { mkdirSync, copyFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,6 +14,7 @@ const ogDir = resolve(pub, 'og');
 mkdirSync(ogDir, { recursive: true });
 
 const iconSvg = readFileSync(iconPath);
+const only = process.argv.slice(2);
 
 // --- favicons / app icons ---
 const pngSizes = [
@@ -23,7 +25,7 @@ const pngSizes = [
   ['icon-192.png', 192],
   ['icon-512.png', 512],
 ];
-for (const [name, size] of pngSizes) {
+for (const [name, size] of only.length ? [] : pngSizes) {
   await sharp(iconSvg, { density: 384 })
     .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .png()
@@ -31,10 +33,10 @@ for (const [name, size] of pngSizes) {
   console.log('icon', name, size);
 }
 // SVG favicon (scalable)
-copyFileSync(iconPath, resolve(pub, 'favicon.svg'));
+if (!only.length) copyFileSync(iconPath, resolve(pub, 'favicon.svg'));
 
 // --- OG cards (1200x630) ---
-function ogSvg({ eyebrow, title1, title2, sub }) {
+function ogSvg({ eyebrow, title1, title2, sub, titleSize = 66 }) {
   // Title may be two lines. Safe system-font fallback (Windows: Segoe UI).
   return `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -59,8 +61,8 @@ function ogSvg({ eyebrow, title1, title2, sub }) {
   </g>
   <g font-family="'Segoe UI', Arial, sans-serif">
     <text x="470" y="180" fill="#7FE9C2" font-size="26" font-weight="700" letter-spacing="3">${eyebrow}</text>
-    <text x="468" y="280" fill="#F5F8F7" font-size="66" font-weight="800">${title1}</text>
-    <text x="468" y="356" fill="#F5F8F7" font-size="66" font-weight="800">${title2}</text>
+    <text x="468" y="280" fill="#F5F8F7" font-size="${titleSize}" font-weight="800">${title1}</text>
+    <text x="468" y="356" fill="#F5F8F7" font-size="${titleSize}" font-weight="800">${title2}</text>
     <text x="470" y="430" fill="#9FB3C8" font-size="34" font-weight="500">${sub}</text>
     <text x="470" y="556" fill="#3DD6E6" font-size="28" font-weight="600" font-family="'Consolas','Courier New',monospace">mywampssl.techguypeter.com</text>
   </g>
@@ -79,9 +81,12 @@ const cards = {
     title1: 'HTTPS local de confiance',
     title2: 'pour WampServer.',
     sub: 'En un clic. Fini les alertes de certificat.',
+    // French headline is longer: a smaller size keeps it inside the 1200px card.
+    titleSize: 56,
   }),
 };
 for (const [name, svg] of Object.entries(cards)) {
+  if (only.length && !only.includes(name)) continue;
   await sharp(Buffer.from(svg)).png().toFile(resolve(ogDir, name));
   console.log('og', name);
 }

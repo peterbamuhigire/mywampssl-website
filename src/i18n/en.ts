@@ -37,7 +37,7 @@ export const en: SiteContent = {
     meta: {
       title: 'WAMP SSL Automator — Trusted Local HTTPS for WampServer',
       description:
-        'Turn http://myapp.test into trusted https:// in one click. Local CA, Apache vhosts, hosts file, restart and verify — with automatic rollback. Free and open source.',
+        'Turn http://myapp.test into trusted https:// in one click: local CA, Apache vhosts, hosts file, restart and verify, with automatic rollback. Free, open source.',
     },
     hero: {
       badge: 'Free · Open source · MIT',
@@ -308,7 +308,7 @@ export const en: SiteContent = {
     meta: {
       title: 'WampServer HTTPS/SSL Setup: Trusted Localhost and .test Domains',
       description:
-        'Enable trusted HTTPS mode for WampServer localhost and local .test domains with a local CA, Apache SSL vhosts, the hosts file, browser-safe certificates and one-click automation.',
+        'Enable trusted HTTPS for WampServer localhost and .test domains: local CA, Apache SSL vhosts, hosts file, browser-safe certificates and one-click automation.',
       keywords: [
         'enable HTTPS mode for localhost WampServer',
         'WampServer SSL setup',

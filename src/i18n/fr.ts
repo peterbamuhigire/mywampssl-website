@@ -39,7 +39,7 @@ export const fr: SiteContent = {
     meta: {
       title: 'WAMP SSL Automator — HTTPS local de confiance pour WampServer',
       description:
-        'Transformez http://myapp.test en https:// de confiance en un clic : autorité de certification locale, vhosts Apache, fichier hosts, redémarrage et vérification — avec retour arrière automatique. Gratuit et open source.',
+        'HTTPS local de confiance pour WampServer en un clic : AC locale, vhosts Apache, fichier hosts, redémarrage, vérification, retour arrière. Gratuit, open source.',
     },
     hero: {
       badge: 'Gratuit · Open source · MIT',
@@ -166,7 +166,7 @@ export const fr: SiteContent = {
     meta: {
       title: 'Fonctionnalités — WAMP SSL Automator',
       description:
-        'Des certificats réellement fiables, une AC racine locale, des exécutions idempotentes, des vhosts fusionnés sans écrasement, des sauvegardes, un retour arrière automatique et une vérification HTTPS de bout en bout.',
+        'Certificats réellement fiables, AC racine locale, exécutions idempotentes, vhosts fusionnés sans écrasement, sauvegardes, retour arrière et vérification HTTPS.',
     },
     h1: 'Chaque fonctionnalité existe parce que c’est en le faisant à la main que tout casse.',
     lead: 'WAMP SSL Automator est sobre en surface — une fenêtre, un bouton — et soigné en dessous. Voici ce que fait chaque partie et pourquoi elle compte.',
@@ -187,7 +187,7 @@ export const fr: SiteContent = {
     meta: {
       title: 'Comment ça marche — Le pipeline SSL en un clic',
       description:
-        'Sauvegarde, AC racine, confiance, certificats par domaine, fusion des vhosts, fichier hosts, validation, redémarrage et vérification — validé avant tout commit et annulé en cas d’échec.',
+        'Sauvegarde, AC racine, confiance, certificats, vhosts, fichier hosts, validation, redémarrage, vérification : validé avant commit, annulé en cas d’échec.',
     },
     h1: 'Ce qui se passe quand vous appuyez sur le bouton.',
     lead: 'Cliquer sur Générer la configuration SSL exécute ce pipeline sur votre installation WAMP en direct, dans l’ordre, sur un fil d’arrière-plan — chaque ligne étant diffusée dans le journal à l’écran. Il valide avant de valider, et revient en arrière en cas d’échec.',
@@ -269,7 +269,7 @@ export const fr: SiteContent = {
 
   faq: {
     meta: {
-      title: 'FAQ — WAMP SSL Automator',
+      title: 'Questions fréquentes — WAMP SSL Automator',
       description:
         'Réponses sur la confiance du navigateur, la sûreté de la configuration, le retour arrière, OpenSSL, la licence, et la sécurité pour le développement local.',
     },
@@ -310,7 +310,7 @@ export const fr: SiteContent = {
     meta: {
       title: 'HTTPS/SSL WampServer : localhost fiable et domaines .test',
       description:
-        'Activez un HTTPS fiable pour localhost WampServer et vos domaines locaux .test avec une AC locale, des vhosts SSL Apache, le fichier hosts, des certificats acceptés par le navigateur et une automatisation en un clic.',
+        'HTTPS fiable pour localhost WampServer et domaines .test : AC locale, vhosts SSL Apache, fichier hosts, certificats acceptés par le navigateur, en un clic.',
       keywords: [
         'activer HTTPS localhost WampServer',
         'configuration SSL WampServer',
@@ -446,7 +446,7 @@ openssl x509 -req -in myapp.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial -ou
     meta: {
       title: 'Configurer des domaines locaux .test sur Windows (WAMP)',
       description:
-        'Configurez des domaines locaux sur Windows avec le fichier hosts et les vhosts Apache dans WampServer — la méthode manuelle et la méthode en un clic, avec les solutions aux problèmes courants.',
+        'Configurez des domaines locaux sous Windows (fichier hosts, vhosts Apache, WampServer) : méthode manuelle, en un clic, et solutions aux problèmes courants.',
     },
     h1: 'Comment configurer des domaines locaux sur Windows avec WampServer',
     lead: 'Au lieu de travailler sur http://localhost/myapp, vous pouvez donner à chaque projet sa propre adresse propre, comme http://myapp.test. Ce guide explique le fichier hosts de Windows et les hôtes virtuels Apache, vous montre comment les relier, et comment ajouter un HTTPS de confiance une fois qu’ils se résolvent.',

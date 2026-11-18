@@ -1,0 +1,44 @@
+---
+// Site-wide "not found" page, served as /404.html by static hosts.
+// English first (default locale) with a French line, because the visitor's
+// language is unknown here. Not indexable: no canonical, no hreflang.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { getContent } from '../i18n/content';
+import { path } from '../i18n/ui';
+
+const c = getContent('en');
+const fr = getContent('fr');
+const links = [
+  { href: path('guideSsl', 'en'), label: c.guideSsl.meta.title },
+  { href: path('guideDomains', 'en'), label: c.guideDomains.meta.title },
+  { href: path('features', 'en'), label: c.nav.find((n) => n.key === 'features')!.label },
+  { href: path('faq', 'en'), label: 'FAQ' },
+];
+---
+<BaseLayout
+  lang="en"
+  routeKey="home"
+  noindex
+  meta={{ title: 'Page not found — WAMP SSL Automator', description: 'The page you asked for does not exist or has moved. Use the links below to find the guides, features and FAQ for WAMP SSL Automator.' }}
+  content={c}
+>
+  <section class="glow-green py-20 md:py-28">
+    <div class="container-x max-w-2xl">
+      <p class="eyebrow">404</p>
+      <h1 class="mt-4 text-4xl font-bold sm:text-5xl">Page not found</h1>
+      <p class="mt-6 text-lg leading-relaxed text-fg-soft">
+        The page you asked for does not exist or has moved. These pages are the most useful places to start.
+      </p>
+      <ul class="mt-6 space-y-1">
+        {links.map((l) => (
+          <li><a href={l.href} class="link inline-flex min-h-8 items-center">{l.label}</a></li>
+        ))}
+      </ul>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <Button href={path('home', 'en')} iconRight="arrow-right">{c.ui.backHome}</Button>
+        <Button href={path('home', 'fr')} variant="ghost"><span lang="fr">Page introuvable : {fr.ui.backHome.toLowerCase()}</span></Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

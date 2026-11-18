@@ -11,8 +11,8 @@ import '../styles/global.css';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_URL, OG } from '../data/site';
-import { LOCALE_META, path, absUrl, alternates, type Locale, type RouteKey } from '../i18n/ui';
+import { SITE_URL, OG, OG_ALT } from '../data/site';
+import { LOCALE_META, LOCALES, path, absUrl, alternates, type Locale, type RouteKey } from '../i18n/ui';
 import type { SiteContent } from '../i18n/types';
 
 interface Props {
@@ -22,15 +22,18 @@ interface Props {
   content: SiteContent;
   jsonLd?: object | object[];
   mainClass?: string;
+  /** Non-indexable utility page (404): emits noindex and omits canonical, hreflang and og:url. */
+  noindex?: boolean;
 }
 
-const { lang, routeKey, meta, content, jsonLd, mainClass = '' } = Astro.props;
+const { lang, routeKey, meta, content, jsonLd, mainClass = '', noindex = false } = Astro.props;
 
 const canonical = absUrl(path(routeKey, lang), SITE_URL);
 const alts = alternates(routeKey, SITE_URL);
 const ogImage = absUrl(OG[lang], SITE_URL);
 const htmlLang = LOCALE_META[lang].htmlLang;
 const ogLocale = LOCALE_META[lang].ogLocale;
+const ogLocaleAlts = LOCALES.filter((l) => l !== lang).map((l) => LOCALE_META[l].ogLocale);
 const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
@@ -42,13 +45,15 @@ const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <title>{meta.title}</title>
     <meta name="description" content={meta.description} />
     {meta.keywords?.length ? <meta name="keywords" content={meta.keywords.join(', ')} /> : null}
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    {noindex
+      ? <meta name="robots" content="noindex, follow" />
+      : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
     <meta name="author" content="Peter Bamuhigire" />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs summary" />
     <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full LLMs context" />
 
-    {alts.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {!noindex && alts.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
 
     <meta name="theme-color" content="#0b1220" />
     <meta name="color-scheme" content="dark" />
@@ -66,17 +71,20 @@ const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:site_name" content="WAMP SSL Automator" />
     <meta property="og:title" content={meta.title} />
     <meta property="og:description" content={meta.description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={OG_ALT[lang]} />
     <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlts.map((l) => <meta property="og:locale:alternate" content={l} />)}
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={meta.title} />
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={OG_ALT[lang]} />
 
     {ldList.map((ld) => (
       <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
