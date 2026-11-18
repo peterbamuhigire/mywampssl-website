@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL, AUTHOR, LINKS, PRODUCT } from '../data/site';
+import { path } from '../i18n/ui';
 import { en } from '../i18n/en';
 
 function strip(html: string): string {
@@ -20,7 +21,7 @@ export const GET: APIRoute = () => {
   const parts: string[] = [];
 
   parts.push(`# ${PRODUCT.name}\n`);
-  parts.push(`Trusted local HTTPS for WampServer, in one click. Windows 10/11. Free and open source (MIT). Site: ${SITE_URL} · Code: ${LINKS.repo} · Download: ${LINKS.download}\n`);
+  parts.push(`Trusted local HTTPS for WampServer, in one click. Windows 10/11. Free and open source (MIT). Site: ${new URL(path('home', 'en'), SITE_URL)} · Code: ${LINKS.repo} · Download: ${LINKS.download}\n`);
 
   parts.push(`## The problem\n${h.problem.intro}\n` + h.problem.bullets.map((b) => `- ${b}`).join('\n') + `\n${h.problem.close}`);
 

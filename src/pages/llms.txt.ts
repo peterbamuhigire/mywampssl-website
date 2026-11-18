@@ -1,15 +1,20 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL, AUTHOR, LINKS } from '../data/site';
 import { en } from '../i18n/en';
+import { fr } from '../i18n/fr';
 import { path } from '../i18n/ui';
 
 const abs = (p: string) => new URL(p, SITE_URL).toString();
 
-// llms.txt — engine LLM-visibility artifact (not a Google ranking lever).
+// llms.txt — optional plain-text summary for LLM tools (not a Google ranking lever).
+// Generated from the same i18n content and route map as the HTML pages.
 export const GET: APIRoute = () => {
   const body = `# WAMP SSL Automator
 
 > Free, open-source Windows desktop tool that gives WampServer developers genuinely-trusted local HTTPS in one click: it creates a local Root Certificate Authority, installs it in the Windows trust store, issues per-domain certificates (SHA-256, SAN, serverAuth EKU, 825-day validity), merges Apache vhosts, updates the Windows hosts file, restarts Apache, and verifies every domain over HTTPS — with timestamped backups and automatic rollback. Windows 10/11, MIT licence.
+
+Generated: ${new Date().toISOString().slice(0, 10)} (UTC)
+Canonical site: ${abs(path('home', 'en'))} (English), ${abs(path('home', 'fr'))} (French)
 
 ## Guides
 - [${en.guideSsl.h1}](${abs(path('guideSsl', 'en'))}): ${en.guideSsl.meta.description}
@@ -31,8 +36,12 @@ export const GET: APIRoute = () => {
 
 ## French / Français
 - [Accueil](${abs(path('home', 'fr'))})
-- [Guide HTTPS/SSL WampServer](${abs(path('guideSsl', 'fr'))})
-- [Guide domaines locaux Windows](${abs(path('guideDomains', 'fr'))})
+- [${fr.guideSsl.h1}](${abs(path('guideSsl', 'fr'))}): ${fr.guideSsl.meta.description}
+- [${fr.guideDomains.h1}](${abs(path('guideDomains', 'fr'))}): ${fr.guideDomains.meta.description}
+- [Fonctionnalités](${abs(path('features', 'fr'))})
+- [Comment ça marche](${abs(path('howItWorks', 'fr'))})
+- [Questions fréquentes](${abs(path('faq', 'fr'))})
+- [À propos](${abs(path('about', 'fr'))})
 
 ## About & contact
 - [About the project and maker](${abs(path('about', 'en'))})
