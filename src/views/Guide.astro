@@ -34,7 +34,7 @@ const updatedLabel = dateFmt.format(new Date(g.updated));
     <header class="glow-green border-b border-line py-14 md:py-20">
       <div class="container-x max-w-3xl">
         <nav aria-label="Breadcrumb" class="mb-5 flex items-center gap-2 text-sm text-fg-muted">
-          <a href={path('home', lang)} class="hover:text-fg">WAMP SSL</a>
+          <a href={path('home', lang)} class="inline-flex min-h-7 items-center hover:text-fg">WAMP SSL Automator</a>
           <Icon name="lucide:chevron-right" class="h-3.5 w-3.5" />
           <span class="text-fg-soft">{c.nav.find((n) => n.key === routeKey)?.label}</span>
         </nav>
@@ -47,7 +47,7 @@ const updatedLabel = dateFmt.format(new Date(g.updated));
     </header>
 
     <div class="container-x grid gap-12 py-14 md:py-16 lg:grid-cols-[1fr_16rem] lg:gap-16">
-      <div class="max-w-none lg:max-w-2xl">
+      <div class="min-w-0 max-w-none lg:max-w-2xl">
         <div class="prose-doc">
           {g.sections.map((sec) => (
             <section id={sec.id}>

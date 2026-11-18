@@ -50,7 +50,7 @@ const jsonLd = S.graph(S.organization(), S.website(lang), S.breadcrumb(crumbs));
     <!-- closing -->
     <div class="container-x py-16 text-center md:py-20">
       <p class="mx-auto max-w-2xl font-display text-3xl font-semibold text-green sm:text-4xl">{p.closing}</p>
-      <a href={path('home', lang)} class="mt-10 inline-flex items-center gap-2 text-sm text-fg-muted transition-colors hover:text-fg">
+      <a href={path('home', lang)} class="mt-10 inline-flex min-h-11 items-center gap-2 text-sm text-fg-muted transition-colors hover:text-fg">
         <Icon name="lucide:arrow-right" class="h-4 w-4 rotate-180" /> {c.ui.backHome}
       </a>
     </div>
